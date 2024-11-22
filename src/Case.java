@@ -17,12 +17,12 @@ public class Case {
         return y;
     }
 
-    // Vérifie si la case est vide
     public boolean isEmpty() {
         return pion == null;
     }
 
-    // Getter pour le pion
+
+
     public Pion getPion() {
         return pion;
     }

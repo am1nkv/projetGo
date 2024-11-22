@@ -1,5 +1,5 @@
 public class Pion {
-    public enum Couleur { N, B }
+    public enum Couleur { X, O } // X(Noir)  O(Blanc)
 
     private Couleur couleur;
     private Case position;
