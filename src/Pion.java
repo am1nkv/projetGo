@@ -20,4 +20,12 @@ public class Pion {
     public void setPosition(Case position) {
         this.position = position;
     }
+
+    @Override
+    public String toString() {
+        if(couleur==Couleur.X){
+            return "X";
+        }
+        return "O";
+    }
 }

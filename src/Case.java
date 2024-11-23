@@ -43,4 +43,12 @@ public class Case {
             this.pion = null;       // Supprime le pion de la case.
         }
     }
+
+    @Override
+    public String toString() {
+        if(!isEmpty()){
+            return pion.toString();
+        }
+        return ". ";
+    }
 }

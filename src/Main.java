@@ -3,18 +3,18 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        /*while (true) {
+        while (true) {
             System.out.print("> ");
             String commande = scanner.nextLine().toLowerCase();
 
             if (commande.startsWith("boardersize")) {
-                boardersize(commande);
-            } else if (commande.startsWith("Play")) {
-                play();
-            } else if (commande.equals("clearbord")) {
-                clearbord();
+                Cmd.boardersize(commande);
+           // } else if (commande.startsWith("Play")) {
+            //    Cmd.play();
+            } else if (commande.equals("clear_bord")) {
+                Cmd.clear_bord();
             } else if (commande.equals("showbord")) {
-               showbord();
+               Cmd.showbord();
             } else if (commande.equals("quit")) {
                 break;
             } else {
@@ -22,6 +22,6 @@ public class Main {
             }
         }
 
-        scanner.close();*/
+        scanner.close();
     }
 }

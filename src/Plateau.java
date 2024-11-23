@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +17,6 @@ public class Plateau {
             plateau.add(t);
         }
     }
-
     public void clearPlateau() {
         for (List<Case> c : plateau) {
             for (Case cs : c) {
@@ -26,10 +24,6 @@ public class Plateau {
             }
         }
     }
-
-        return plateau.get(y).get(x);
-    }
-
     public void toSrtring() {
         int ln = plateau.size();
         int cl= plateau.get(0).size();
@@ -50,5 +44,13 @@ public class Plateau {
             System.out.print((char) ('A' + i) + " ");
         }
         System.out.println();
+    }
+
+    public Case getCase(int x, int y) {
+        return plateau.get(y).get(x);
+    }
+
+    public int getTaille() {
+        return plateau.size();
     }
 }

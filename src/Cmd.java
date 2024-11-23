@@ -1,7 +1,7 @@
 public class Cmd {
-    private Plateau p;
+    private static Plateau p;
 
-    public void boardersize(String s) {
+    public static void boardersize(String s) {
         int size = 0;
         for (int i = 0; i < s.length(); i++) {
             if (Character.isDigit(s.charAt(i))) {
@@ -11,11 +11,11 @@ public class Cmd {
         p = new Plateau(size);
     }
 
-    public void clear_board() {
+    public static void clear_bord() {
         p.clearPlateau();
     }
 
-    public void play(String couleur, String coord) {
+    public static void play(String couleur, String coord) {
         Pion.Couleur color;
         if (couleur.equalsIgnoreCase("black"))
             color = Pion.Couleur.X;
@@ -33,7 +33,7 @@ public class Cmd {
         casee.setPion(new Pion(color));
     }
 
-    public void showboard(){
+    public static void showbord(){
         p.toSrtring();
     }
 }
