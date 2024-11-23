@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -9,8 +11,9 @@ public class Main {
 
             if (commande.startsWith("boardersize")) {
                 Cmd.boardersize(commande);
-           // } else if (commande.startsWith("Play")) {
-            //    Cmd.play();
+            } else if (commande.startsWith("play")) {
+                List<String> liste = Cmd.recuperer(commande);
+                Cmd.play(liste.get(0), liste.get(1).toUpperCase());
             } else if (commande.equals("clear_bord")) {
                 Cmd.clear_bord();
             } else if (commande.equals("showbord")) {
