@@ -49,6 +49,6 @@ public class Case {
         if(!isEmpty()){
             return pion.toString();
         }
-        return ". ";
+        return ".";
     }
 }
