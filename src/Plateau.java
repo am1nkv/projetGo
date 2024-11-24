@@ -37,13 +37,23 @@ public class Plateau {
             for (Case cs : plateau.get(i)) {
                 System.out.print(cs.toString());
             }
-            System.out.println((ln - i));
+            System.out.print((ln - i));
+
+            if(i == ln-2){
+                System.out.print("    WHITE (O) has captured 0 stones");
+
+            }
+            if(i == ln-1){
+                System.out.print("    BLACK (X) has captured 0 stones");
+            }
+            System.out.println();
         }
         System.out.print("  ");
         for (int i = 0; i < cl; i++) {
             System.out.print((char) ('A' + i) + " ");
         }
         System.out.println();
+
     }
 
     public Case getCase(int x, int y) {

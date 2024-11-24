@@ -4,7 +4,7 @@ import java.util.List;
 public class Cmd {
     private static Plateau p;
 
-    public static void boardersize(String s) {
+    public static void boardsize(String s) {
         String size = "";
         for (int i = 0; i < s.length(); i++) {
             if (Character.isDigit(s.charAt(i))) {
@@ -15,7 +15,7 @@ public class Cmd {
         p = new Plateau(sz);
     }
 
-    public static void clear_bord() {
+    public static void clear_board() {
         p.clearPlateau();
     }
 
@@ -40,7 +40,7 @@ public class Cmd {
         casee.setPion(new Pion(color));
     }
 
-    public static void showbord(){
+    public static void showboard(){
         p.toSrtring();
     }
 
@@ -59,6 +59,10 @@ public class Cmd {
         liste.add(mot);
         liste.remove(0);
         return liste;
+    }
+
+    public Plateau getP(){
+        return p;
     }
 }
 

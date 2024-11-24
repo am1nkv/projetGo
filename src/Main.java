@@ -8,16 +8,15 @@ public class Main {
         while (true) {
             System.out.print("> ");
             String commande = scanner.nextLine().toLowerCase();
-
-            if (commande.startsWith("boardersize")) {
-                Cmd.boardersize(commande);
+            if (commande.startsWith("boardsize")) {
+                Cmd.boardsize(commande);
             } else if (commande.startsWith("play")) {
                 List<String> liste = Cmd.recuperer(commande);
                 Cmd.play(liste.get(0), liste.get(1).toUpperCase());
-            } else if (commande.equals("clear_bord")) {
-                Cmd.clear_bord();
-            } else if (commande.equals("showbord")) {
-               Cmd.showbord();
+            } else if (commande.equals("clear_board")) {
+                Cmd.clear_board();
+            } else if (commande.equals("showboard")) {
+               Cmd.showboard();
             } else if (commande.equals("quit")) {
                 break;
             } else {
