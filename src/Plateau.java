@@ -35,7 +35,7 @@ public class Plateau {
         for (int i = 0; i < ln; i++) {
             System.out.print((ln - i) + " ");
             for (Case cs : plateau.get(i)) {
-                System.out.print(cs.toString());
+                System.out.print(cs.toString() + " ");
             }
             System.out.print((ln - i));
 
