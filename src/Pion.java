@@ -24,8 +24,8 @@ public class Pion {
     @Override
     public String toString() {
         if(couleur==Couleur.X){
-            return "X ";
+            return "X";
         }
-        return "O ";
+        return "O";
     }
 }
