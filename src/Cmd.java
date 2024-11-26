@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Cmd {
     private static Plateau p;
@@ -63,6 +64,18 @@ public class Cmd {
 
     public Plateau getP(){
         return p;
+    }
+
+    public static void genmove(String couleur){
+        String coord ="";
+        Random r = new Random();
+        int y = r.nextInt(p.getTaille());
+        int x = r.nextInt(p.getTaille());
+        char lettre = (char) ('A' + x);
+        coord += lettre +"" +y;
+        System.out.println(coord);
+        play(couleur, coord);
+        System.out.println(" =" + coord);
     }
 }
 

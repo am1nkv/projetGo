@@ -17,6 +17,10 @@ public class Main {
                 Cmd.clear_board();
             } else if (commande.equals("showboard")) {
                Cmd.showboard();
+            } else if (commande.startsWith("genmove")) {
+                List<String> liste = Cmd.recuperer(commande);
+                System.out.println(liste);
+                Cmd.genmove(liste.get(0));
             } else if (commande.equals("quit")) {
                 break;
             } else {
