@@ -47,4 +47,18 @@ public class TestJeu {
         Assertions.assertEquals("." , c.getP().getCase(5 , 2).toString());
     }
 
+    /*@Test
+    public void testGenmoveRempli() {
+        Cmd c = new Cmd();
+        c.boardsize("boardersize 2");
+        c.play("black" , "A1");
+        System.out.println();
+        c.play("black" , "A2");
+        System.out.println();
+        c.play("white" , "B1");
+        System.out.println();
+        c.play("white" , "B2");
+        System.out.println();
+        Assertions.assertEquals("?6 illegal move" , c.genmove("white"));
+    }*/
 }

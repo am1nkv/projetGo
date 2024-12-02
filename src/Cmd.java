@@ -5,6 +5,12 @@ import java.util.Random;
 public class Cmd {
     private static Plateau p;
 
+    private static int cptCmd = 0;
+
+    public static int getCptCmd() {
+        return cptCmd;
+    }
+
     public static void boardsize(String s) {
         String size = "";
         for (int i = 0; i < s.length(); i++) {
@@ -14,13 +20,17 @@ public class Cmd {
         }
         int sz = Integer.parseInt(size);
         p = new Plateau(sz);
+        cptCmd++;
+        System.out.println("=" + cptCmd);
     }
 
     public static void clear_board() {
         p.clearPlateau();
+        cptCmd++;
+        System.out.println("=" + cptCmd);
     }
 
-    public static void play(String couleur, String coord) {
+    public static boolean play(String couleur, String coord) {
         Pion.Couleur color;
         if (couleur.equalsIgnoreCase("black"))
             color = Pion.Couleur.X;
@@ -33,15 +43,23 @@ public class Cmd {
 
         Case casee = p.getCase(x,y);
 
+        cptCmd++;
+
         if (!casee.isEmpty()) {
-            System.out.println("Case occupée, réessayez !");
-            return;
+            System.out.print("?" + cptCmd + " illegal move");
+            return false;
+        }
+        else {
+            System.out.print("=" + cptCmd);
         }
 
         casee.setPion(new Pion(color));
+        return true;
     }
 
     public static void showboard(){
+        cptCmd++;
+        System.out.println("=" + cptCmd);
         p.toSrtring();
     }
 
@@ -66,16 +84,17 @@ public class Cmd {
         return p;
     }
 
-    public static void genmove(String couleur){
+    public static String genmove(String couleur){
         String coord ="";
         Random r = new Random();
-        int y = r.nextInt(p.getTaille());
+        int y = r.nextInt(p.getTaille()) + 1;
         int x = r.nextInt(p.getTaille());
         char lettre = (char) ('A' + x);
         coord += lettre +"" +y;
-        System.out.println(coord);
-        play(couleur, coord);
-        System.out.println(" =" + coord);
+        if(!play(couleur, coord)){
+            return " ";
+        }
+        return " " + coord;
     }
 }
 
