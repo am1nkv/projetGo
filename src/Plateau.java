@@ -63,7 +63,6 @@ public class Plateau {
     public int getTaille() {
         return plateau.size();
     }
-
     public boolean aCaseVide() {
         for (List<Case> row : plateau) {
             for (Case c : row) {
@@ -74,4 +73,5 @@ public class Plateau {
         }
         return false;
     }
+
 }

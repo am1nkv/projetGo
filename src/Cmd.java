@@ -7,37 +7,45 @@ public class Cmd {
 
     private static String num;
 
-    public static String getCptCmd() {
-        return num;
+    public static List<String> recuperer(String s) {
+        String[] mots = s.split(" ");
+        List<String> liste = new ArrayList<>();
+        for (String mot : mots) {
+            if (!mot.isEmpty()) {
+                liste.add(mot);
+            }
+        }
+
+        if (estNum(liste.get(0))) {
+            num = liste.get(0);
+            liste.remove(0);
+        } else {
+            num = "";
+        }
+        return liste;
+
+//        List<String> liste = new ArrayList<>();
+//        String mot = "";
+//
+//        for (int i = 0 ; i < s.length() ; i++){
+//            if (s.charAt(i)  != ' '){
+//                mot += s.charAt(i);
+//            }
+//            else {
+//                liste.add(mot);
+//                mot = "";
+//            }
+//        }
+//        liste.add(mot);
+//        return liste;
     }
 
     public static void boardsize(String s) {
-        String size = "";
-        for (int i = 1; i < s.length(); i++) {
-            if (Character.isDigit(s.charAt(i))) {
-                size += Character.getNumericValue(s.charAt(i));
-            }
-        }
-        int sz = Integer.parseInt(size);
+        int sz = Integer.parseInt(s);
         p = new Plateau(sz);
         System.out.println(reponse(true));
     }
 
-    public static void setNum(String s) {
-        try {
-            // Essaie de convertir s en entier
-            Integer.parseInt(s);
-            num = s; // Si ça réussit, on l'assigne à num
-        } catch (NumberFormatException e) {
-            // Si ça échoue, on assigne une chaîne vide à num
-            num = "";
-        }
-    }
-
-    public static void clear_board() {
-        p.clearPlateau();
-        System.out.println(reponse(true));
-    }
     public static void play(String couleur, String coord) {
         Pion.Couleur color;
         if (couleur.equalsIgnoreCase("black"))
@@ -50,39 +58,21 @@ public class Cmd {
         int y = p.getTaille() - Integer.parseInt(chiffres);
         Case casee = p.getCase(x, y);
         if (!casee.isEmpty()) {
-            System.out.println(reponse(false) + " illegal move");
+            System.out.print(reponse(false) + " illegal move");
             return;
         }
         System.out.print(reponse(true));
         casee.setPion(new Pion(color));
     }
 
+    public static void clearboard() {
+        p.clearPlateau();
+        System.out.println(reponse(true));
+    }
 
-    public static void showboard(){
+    public static void showboard() {
         System.out.println(reponse(true));
         p.toSrtring();
-    }
-
-    public static List<String> recuperer(String s){
-        String mot = "";
-        List<String> liste = new ArrayList<>();
-        for (int i = 0 ; i < s.length() ; i++){
-            if (s.charAt(i)  != ' '){
-                mot += s.charAt(i);
-            }
-            else {
-                liste.add(mot);
-                mot = "";
-            }
-        }
-        liste.add(mot);
-        return liste;
-    }
-
-
-
-    public Plateau getP(){
-        return p;
     }
 
     public static void genmove(String couleur) {
@@ -100,21 +90,35 @@ public class Cmd {
 
             if (casee.isEmpty()) {
                 play(couleur, coord);
-                System.out.println( " " +coord);
+                System.out.println(" " + coord);
                 return;
             }
         }
-        System.out.println(reponse(false)+ "plateau rempli");
+        System.out.println(reponse(false) + "plateau rempli");
     }
+
+    public static void quit(){
+        System.out.println(reponse(true));
+        System.exit(0);
+    }
+
+    public Plateau getP() {
+        return p;
+    }
+
     public static String reponse(boolean commande) {
-//        if (num.equals(""))
-//            return "";
-        if (commande ) {
+        if (commande) {
             return "=" + num;
         } else
             return "?" + num;
     }
 
+    public static boolean estNum(String mot) {
+        for (char c : mot.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
-
-
