@@ -5,32 +5,40 @@ import java.util.Random;
 public class Cmd {
     private static Plateau p;
 
-    private static int cptCmd = 0;
+    private static String num;
 
-    public static int getCptCmd() {
-        return cptCmd;
+    public static String getCptCmd() {
+        return num;
     }
 
     public static void boardsize(String s) {
         String size = "";
-        for (int i = 0; i < s.length(); i++) {
+        for (int i = 1; i < s.length(); i++) {
             if (Character.isDigit(s.charAt(i))) {
                 size += Character.getNumericValue(s.charAt(i));
             }
         }
         int sz = Integer.parseInt(size);
         p = new Plateau(sz);
-        cptCmd++;
-        System.out.println("=" + cptCmd);
+        System.out.println(reponse(true));
+    }
+
+    public static void setNum(String s) {
+        try {
+            // Essaie de convertir s en entier
+            Integer.parseInt(s);
+            num = s; // Si ça réussit, on l'assigne à num
+        } catch (NumberFormatException e) {
+            // Si ça échoue, on assigne une chaîne vide à num
+            num = "";
+        }
     }
 
     public static void clear_board() {
         p.clearPlateau();
-        cptCmd++;
-        System.out.println("=" + cptCmd);
+        System.out.println(reponse(true));
     }
-
-    public static boolean play(String couleur, String coord) {
+    public static void play(String couleur, String coord) {
         Pion.Couleur color;
         if (couleur.equalsIgnoreCase("black"))
             color = Pion.Couleur.X;
@@ -38,28 +46,20 @@ public class Cmd {
             color = Pion.Couleur.O;
 
         String chiffres = coord.substring(1);
-        int x = coord.charAt(0) -'A';
+        int x = coord.charAt(0) - 'A';
         int y = p.getTaille() - Integer.parseInt(chiffres);
-
-        Case casee = p.getCase(x,y);
-
-        cptCmd++;
-
+        Case casee = p.getCase(x, y);
         if (!casee.isEmpty()) {
-            System.out.print("?" + cptCmd + " illegal move");
-            return false;
+            System.out.println(reponse(false) + " illegal move");
+            return;
         }
-        else {
-            System.out.print("=" + cptCmd);
-        }
-
+        System.out.print(reponse(true));
         casee.setPion(new Pion(color));
-        return true;
     }
 
+
     public static void showboard(){
-        cptCmd++;
-        System.out.println("=" + cptCmd);
+        System.out.println(reponse(true));
         p.toSrtring();
     }
 
@@ -76,26 +76,45 @@ public class Cmd {
             }
         }
         liste.add(mot);
-        liste.remove(0);
         return liste;
     }
+
+
 
     public Plateau getP(){
         return p;
     }
 
-    public static String genmove(String couleur){
-        String coord ="";
+    public static void genmove(String couleur) {
         Random r = new Random();
-        int y = r.nextInt(p.getTaille()) + 1;
-        int x = r.nextInt(p.getTaille());
-        char lettre = (char) ('A' + x);
-        coord += lettre +"" +y;
-        if(!play(couleur, coord)){
-            return " ";
+        String coord;
+        while (p.aCaseVide()) {
+            coord = "";
+            int y = r.nextInt(p.getTaille()) + 1;
+            int x = r.nextInt(p.getTaille());
+            char lettre = (char) ('A' + x);
+
+            coord += lettre + "" + y;
+
+            Case casee = p.getCase(x, y);
+
+            if (casee.isEmpty()) {
+                play(couleur, coord);
+                System.out.println( " " +coord);
+                return;
+            }
         }
-        return " " + coord;
+        System.out.println(reponse(false)+ "plateau rempli");
     }
+    public static String reponse(boolean commande) {
+//        if (num.equals(""))
+//            return "";
+        if (commande ) {
+            return "=" + num;
+        } else
+            return "?" + num;
+    }
+
 }
 
 
