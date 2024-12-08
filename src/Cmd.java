@@ -5,7 +5,7 @@ import java.util.Random;
 public class Cmd {
     private static Plateau p;
     private static String num;
-    private static boolean estPremierCoup = true;
+    private static boolean estPremierCoupDuJeu = true;
 
     public static List<String> recuperer(String s) {
         String[] mots = s.split(" ");
@@ -28,13 +28,13 @@ public class Cmd {
     public static void boardsize(String s) {
         int sz = Integer.parseInt(s);
         p = new Plateau(sz);
-        estPremierCoup = true;
+        estPremierCoupDuJeu = true;
         System.out.println(reponse(true));
     }
 
     public static void play(String couleur, String coord) {
         //Si le premier coup n'est pas le pion noir
-        if (estPremierCoup && !couleur.equals("black")) {
+        if (estPremierCoupDuJeu && !couleur.equals("black")) {
             System.out.println(reponse(false) + " premier coup doit etre noir");
             return;
         }
@@ -53,7 +53,7 @@ public class Cmd {
         casee.setPion(new Pion(color));
         System.out.print(reponse(true));
 
-        estPremierCoup = false;
+        estPremierCoupDuJeu = false;
     }
 
     public static void clearboard() {
