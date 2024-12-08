@@ -4,8 +4,8 @@ import java.util.Random;
 
 public class Cmd {
     private static Plateau p;
-
     private static String num;
+    private static boolean estPremierCoup = true;
 
     public static List<String> recuperer(String s) {
         String[] mots = s.split(" ");
@@ -23,46 +23,37 @@ public class Cmd {
             num = "";
         }
         return liste;
-
-//        List<String> liste = new ArrayList<>();
-//        String mot = "";
-//
-//        for (int i = 0 ; i < s.length() ; i++){
-//            if (s.charAt(i)  != ' '){
-//                mot += s.charAt(i);
-//            }
-//            else {
-//                liste.add(mot);
-//                mot = "";
-//            }
-//        }
-//        liste.add(mot);
-//        return liste;
     }
 
     public static void boardsize(String s) {
         int sz = Integer.parseInt(s);
         p = new Plateau(sz);
+        estPremierCoup = true;
         System.out.println(reponse(true));
     }
 
     public static void play(String couleur, String coord) {
-        Pion.Couleur color;
-        if (couleur.equalsIgnoreCase("black"))
-            color = Pion.Couleur.X;
-        else
-            color = Pion.Couleur.O;
+        //Si le premier coup n'est pas le pion noir
+        if (estPremierCoup && !couleur.equals("black")) {
+            System.out.println(reponse(false) + " premier coup doit etre noir");
+            return;
+        }
+        Pion.Couleur color =
+                couleur.equalsIgnoreCase("black") ? Pion.Couleur.X : Pion.Couleur.O;
 
         String chiffres = coord.substring(1);
         int x = coord.charAt(0) - 'A';
         int y = p.getTaille() - Integer.parseInt(chiffres);
         Case casee = p.getCase(x, y);
+
         if (!casee.isEmpty()) {
             System.out.print(reponse(false) + " illegal move");
             return;
         }
-        System.out.print(reponse(true));
         casee.setPion(new Pion(color));
+        System.out.print(reponse(true));
+
+        estPremierCoup = false;
     }
 
     public static void clearboard() {
@@ -97,7 +88,7 @@ public class Cmd {
         System.out.println(reponse(false) + "plateau rempli");
     }
 
-    public static void quit(){
+    public static void quit() {
         System.out.println(reponse(true));
         System.exit(0);
     }
