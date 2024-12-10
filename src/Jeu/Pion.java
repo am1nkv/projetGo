@@ -1,3 +1,7 @@
+package Jeu;
+
+import Jeu.Case;
+
 public class Pion {
     public enum Couleur { X, O } // X(Noir)  O(Blanc)
 

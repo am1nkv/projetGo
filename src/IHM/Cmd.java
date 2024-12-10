@@ -1,3 +1,9 @@
+package IHM;
+
+import Jeu.Case;
+import Jeu.Pion;
+import Jeu.Plateau;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

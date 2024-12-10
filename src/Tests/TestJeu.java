@@ -1,3 +1,6 @@
+package Tests;
+
+import IHM.Cmd;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -42,14 +45,14 @@ public class TestJeu {
         Assertions.assertEquals("X" , c.getP().getCase(3 , 4).toString());
         c.play("white" , "F5");
         Assertions.assertEquals("O" , c.getP().getCase(5 , 2).toString());
-        c.clear_board();
+        c.clearboard();
         Assertions.assertEquals("." , c.getP().getCase(3 , 4).toString());
         Assertions.assertEquals("." , c.getP().getCase(5 , 2).toString());
     }
 
     /*@Test
     public void testGenmoveRempli() {
-        Cmd c = new Cmd();
+        IHM.Cmd c = new IHM.Cmd();
         c.boardsize("boardersize 2");
         c.play("black" , "A1");
         System.out.println();

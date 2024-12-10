@@ -1,3 +1,7 @@
+package Appli;
+
+import IHM.Cmd;
+
 import java.util.List;
 import java.util.Scanner;
 
