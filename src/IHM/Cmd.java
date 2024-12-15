@@ -32,7 +32,17 @@ public class Cmd {
     }
 
     public static void boardsize(String s) {
-        int sz = Integer.parseInt(s);
+        int sz = 0 ;
+        try {
+            sz = Integer.parseInt(s);
+        } catch(NumberFormatException e) {
+            System.out.println(reponse(false) + " illegal move");
+            return;
+        }
+        if(sz < 5){
+            System.out.println(reponse(false) + " board size outside engine's limits");
+            return;
+        }
         p = new Plateau(sz);
         estPremierCoupDuJeu = true;
         System.out.println(reponse(true));
