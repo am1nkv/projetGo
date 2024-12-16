@@ -1,6 +1,9 @@
 package Tests;
 
 import IHM.Cmd;
+import Jeu.Pion;
+import Jeu.Plateau;
+import Joueurs.Arbre;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -11,7 +14,7 @@ public class TestJeu {
     @Test
     public void testBoardSize() {
         Cmd c = new Cmd();
-        c.boardsize("boardersize 7");
+        c.boardsize("7");
         Assertions.assertEquals(7 , c.getP().getTaille());
     }
 
@@ -23,7 +26,7 @@ public class TestJeu {
     @Test
     public void testPlay() {
         Cmd c = new Cmd();
-        c.boardsize("boardersize 7");
+        c.boardsize("7");
         c.play("black" , "D3");
         Assertions.assertEquals("X" , c.getP().getCase(3 , 4).toString());
         c.play("white" , "F5");
@@ -40,7 +43,7 @@ public class TestJeu {
     @Test
     public void testClearBoard() {
         Cmd c = new Cmd();
-        c.boardsize("boardersize 7");
+        c.boardsize("7");
         c.play("black" , "D3");
         Assertions.assertEquals("X" , c.getP().getCase(3 , 4).toString());
         c.play("white" , "F5");
@@ -49,6 +52,15 @@ public class TestJeu {
         Assertions.assertEquals("." , c.getP().getCase(3 , 4).toString());
         Assertions.assertEquals("." , c.getP().getCase(5 , 2).toString());
     }
+    @Test
+    public void TestArbre(){
+        Plateau p = new Plateau(7);
+        Arbre arbre = new Arbre(p, Pion.Couleur.O);
+        arbre.AjtrNoead(arbre);
+
+
+    }
+
 
     /*@Test
     public void testGenmoveRempli() {
