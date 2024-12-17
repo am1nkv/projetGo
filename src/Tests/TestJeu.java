@@ -31,6 +31,10 @@ public class TestJeu {
         Assertions.assertEquals("X" , c.getP().getCase(3 , 4).toString());
         c.play("white" , "F5");
         Assertions.assertEquals("O" , c.getP().getCase(5 , 2).toString());
+        c.play("black","D4");
+        c.play("black","D5");
+        c.play("black","D6");
+        Assertions.assertEquals(true,c.estAligner(4, Pion.Couleur.O));
     }
 
     @Test
@@ -54,9 +58,10 @@ public class TestJeu {
     }
     @Test
     public void TestArbre(){
-        Plateau p = new Plateau(7);
+        Plateau p = new Plateau(2);
         Arbre arbre = new Arbre(p, Pion.Couleur.O);
         arbre.AjtrNoead(arbre);
+
 
 
     }

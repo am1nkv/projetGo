@@ -8,7 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static Jeu.Pion.Couleur.X;
+
 public class Cmd {
+
     private static Plateau p;
     private static String num;
     private static boolean estPremierCoupDuJeu = true;
@@ -55,7 +58,7 @@ public class Cmd {
             return;
         }
         Pion.Couleur color =
-                couleur.equalsIgnoreCase("black") ? Pion.Couleur.X : Pion.Couleur.O;
+                couleur.equalsIgnoreCase("black") ? X : Pion.Couleur.O;
 
         String chiffres = coord.substring(1);
         int x = coord.charAt(0) - 'A';
@@ -70,6 +73,8 @@ public class Cmd {
         System.out.print(reponse(true));
 
         estPremierCoupDuJeu = false;
+
+        estGagnant(3 , color);
     }
 
     public static void clearboard() {
@@ -85,6 +90,8 @@ public class Cmd {
     public static void genmove(String couleur) {
         Random r = new Random();
         String coord;
+        Pion.Couleur color =
+                couleur.equalsIgnoreCase("black") ? X : Pion.Couleur.O;
         while (p.aCaseVide()) {
             coord = "";
             int y = r.nextInt(p.getTaille()) + 1;
@@ -101,6 +108,7 @@ public class Cmd {
                 return;
             }
         }
+        estGagnant(3 , color );
         System.out.println(reponse(false) + "plateau rempli");
     }
 
@@ -128,4 +136,64 @@ public class Cmd {
         }
         return true;
     }
+
+    public static boolean alignement(int debutX, int debutY, int dx, int dy, Pion.Couleur c, int nb){
+        int tmp = 0;
+        for(int i = 0 ; i < nb; i++){
+            int x = debutX + i * dx;
+            int y = debutY + i * dy;
+            if (x < 0 || x >= p.getTaille() || y < 0 || y >= p.getTaille()) {
+                return false; // Invalid position, alignment broken
+            }
+
+            // Safely check for null cases and pion objects
+            if (p.getCase(x, y) == null || p.getCase(x, y).getPion() == null) {
+                return false; // No piece found, alignment broken
+            }
+            if(p.getCase(x,y).getPion().getCouleur() == c) {
+                tmp++;
+            }
+
+        }
+
+        if (tmp == nb) {
+            return true;
+        }
+        return false;
+    }
+    public static boolean estAligner(int nb, Pion.Couleur c){
+        for(int i=0 ; i < p.getTaille() ; i++){
+            for(int y=0; y < p.getTaille() ; y++){
+                if (alignement(i,y,1,0,c ,  nb)) {
+                    return true;
+                }
+                if(alignement(i,y, 1 , 1, c, nb)) {
+                    return true;
+                }
+                if (alignement(i,y, 0,1, c, nb)) {
+                   return true;
+                }
+                if(alignement(i,y, -1 , 0 , c , nb )) {
+                    return true;
+                }
+                if(alignement(i,y,-1,-1,c,nb )) {
+                    return true;
+                }
+                if(alignement(i,y , 0, -1 , c , nb )){
+                    return true;
+                }
+              
+            }
+        }
+        return false;
+    }
+
+    public static void estGagnant(int nb , Pion.Couleur c){
+        if(estAligner(nb , c)){
+            System.out.println("Le joueur " + c + " a gagné");
+            quit();
+        }
+
+    }
+
 }

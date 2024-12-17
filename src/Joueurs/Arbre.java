@@ -42,12 +42,15 @@ public class Arbre {
            for(int j=0; j < plateau.getTaille(); j++){
                Plateau a1 = plateau;
                while(cp_plateau.aCaseVide() && a1.getCase(i, j).isEmpty()){
-                   a1.getCase(i, j).setPion(new Pion(couleur));
-                   cp_plateau.getCase(i, j).setPion(new Pion(couleur));
-                   root.fils.add(new Arbre(a1, couleur));
-                   a1.toSrtring();
+                       a1.getCase(i, j).setPion(new Pion(couleur));
+                       cp_plateau.getCase(i, j).setPion(new Pion(couleur));
+                       root.fils.add(new Arbre(a1, couleur));
+                       a1.toSrtring();
+
                }
+
            }
+
        }
     }
 

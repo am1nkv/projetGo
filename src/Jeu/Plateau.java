@@ -9,6 +9,7 @@ public class Plateau {
     private List<List<Case>> plateau;
     private int taille;
 
+
     public Plateau(int size) {
         this.taille = size;
         plateau = new ArrayList<>();
@@ -43,13 +44,7 @@ public class Plateau {
             }
             System.out.print((ln - i));
 
-            if(i == ln-2){
-                System.out.print("    WHITE (O) has captured 0 stones");
 
-            }
-            if(i == ln-1){
-                System.out.print("    BLACK (X) has captured 0 stones");
-            }
             System.out.println();
         }
         System.out.print("  ");
@@ -77,5 +72,8 @@ public class Plateau {
         }
         return false;
     }
+
+
+
 
 }
