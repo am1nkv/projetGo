@@ -12,6 +12,7 @@ public class Plateau {
 
     public Plateau(int size) {
         this.taille = size;
+
         plateau = new ArrayList<>();
 
         for (int i = 0; i < size; i++) {

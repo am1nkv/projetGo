@@ -15,8 +15,15 @@ public class Cmd {
     private static Plateau p;
     private static String num;
     private static boolean estPremierCoupDuJeu = true;
+    private static int nb_alignemnts;
+
 
     public static List<String> recuperer(String s) {
+        if (s.trim().isEmpty()) { // Vérifie si la chaîne est vide ou null
+           System.out.println(reponse(false));
+           return new ArrayList<>();
+        }
+
         String[] mots = s.split(" ");
         List<String> liste = new ArrayList<>();
         for (String mot : mots) {
@@ -35,26 +42,35 @@ public class Cmd {
     }
 
     public static void boardsize(String s) {
-        int sz = 0 ;
+        int sz = 0;
         try {
             sz = Integer.parseInt(s);
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             System.out.println(reponse(false) + " illegal move");
             return;
         }
-        if(sz < 5){
-            System.out.println(reponse(false) + " board size outside engine's limits");
+        if(sz < 3){
+            System.out.println(reponse(false) + " illegal move");
             return;
         }
         p = new Plateau(sz);
+        nb_alignemnts = (sz > 4) ? 5 : 3;
+
         estPremierCoupDuJeu = true;
         System.out.println(reponse(true));
     }
 
+    ;
+
     public static void play(String couleur, String coord) {
         //Si le premier coup n'est pas le pion noir
-        if (estPremierCoupDuJeu && !couleur.equals("black")) {
-            System.out.println(reponse(false) + " premier coup doit etre noir");
+        if (estPremierCoupDuJeu && !couleur.equals("black") && !couleur.equals("white")) {
+            System.out.println(reponse(false) + " invalid vertex, illegal move");
+            return;
+        }
+
+        if(p==null){
+            System.out.println(reponse(false) +" invalid vertex, illegal move");
             return;
         }
         Pion.Couleur color =
@@ -66,7 +82,7 @@ public class Cmd {
         Case casee = p.getCase(x, y);
 
         if (!casee.isEmpty()) {
-            System.out.print(reponse(false) + " illegal move");
+            System.out.print(reponse(false) + " invalid vertex, illegal move");
             return;
         }
         casee.setPion(new Pion(color));
@@ -74,20 +90,32 @@ public class Cmd {
 
         estPremierCoupDuJeu = false;
 
-        estGagnant(3 , color);
+        estGagnant( color);
     }
 
     public static void clearboard() {
+        if(p==null){
+            System.out.println(reponse(false));
+            return;
+        }
         p.clearPlateau();
         System.out.println(reponse(true));
     }
 
     public static void showboard() {
+        if(p == null){
+            System.out.println(reponse(false));
+            return;
+        }
         System.out.println(reponse(true));
         p.toSrtring();
     }
 
     public static void genmove(String couleur) {
+        if(p==null){
+            System.out.println(reponse(false) + " illegal move");
+            return;
+        }
         Random r = new Random();
         String coord;
         Pion.Couleur color =
@@ -108,7 +136,7 @@ public class Cmd {
                 return;
             }
         }
-        estGagnant(3 , color );
+        estGagnant( color);
         System.out.println(reponse(false) + "plateau rempli");
     }
 
@@ -137,63 +165,46 @@ public class Cmd {
         return true;
     }
 
-    public static boolean alignement(int debutX, int debutY, int dx, int dy, Pion.Couleur c, int nb){
+    public static boolean alignement(int debutX, int debutY, int dx, int dy, Pion.Couleur c) {
         int tmp = 0;
-        for(int i = 0 ; i < nb; i++){
+        for (int i = 0; i < nb_alignemnts; i++) {
             int x = debutX + i * dx;
             int y = debutY + i * dy;
             if (x < 0 || x >= p.getTaille() || y < 0 || y >= p.getTaille()) {
-                return false; // Invalid position, alignment broken
+                return false;
             }
 
-            // Safely check for null cases and pion objects
             if (p.getCase(x, y) == null || p.getCase(x, y).getPion() == null) {
-                return false; // No piece found, alignment broken
+                return false;
             }
-            if(p.getCase(x,y).getPion().getCouleur() == c) {
+            if (p.getCase(x, y).getPion().getCouleur() == c) {
                 tmp++;
             }
 
         }
 
-        if (tmp == nb) {
-            return true;
-        }
-        return false;
+        return tmp == nb_alignemnts;
     }
-    public static boolean estAligner(int nb, Pion.Couleur c){
-        for(int i=0 ; i < p.getTaille() ; i++){
-            for(int y=0; y < p.getTaille() ; y++){
-                if (alignement(i,y,1,0,c ,  nb)) {
-                    return true;
-                }
-                if(alignement(i,y, 1 , 1, c, nb)) {
-                    return true;
-                }
-                if (alignement(i,y, 0,1, c, nb)) {
-                   return true;
-                }
-                if(alignement(i,y, -1 , 0 , c , nb )) {
-                    return true;
-                }
-                if(alignement(i,y,-1,-1,c,nb )) {
-                    return true;
-                }
-                if(alignement(i,y , 0, -1 , c , nb )){
-                    return true;
-                }
-              
+
+    public static boolean estAligner(Pion.Couleur c) {
+        for (int i = 0; i < p.getTaille(); i++) {
+            for (int y = 0; y < p.getTaille(); y++) {
+                if (alignement(i, y, 1, 0, c)) return true;
+                if (alignement(i, y, 1, -1, c)) return true;
+                if (alignement(i, y, 0, 1, c)) return true;
+                if (alignement(i, y, -1, 0, c)) return true;
+                if (alignement(i, y, -1, -1, c)) return true;
+                if (alignement(i, y, 0, -1, c)) return true;
             }
         }
         return false;
     }
 
-    public static void estGagnant(int nb , Pion.Couleur c){
-        if(estAligner(nb , c)){
-            System.out.println("Le joueur " + c + " a gagné");
-            quit();
+    public static void estGagnant(Pion.Couleur c) {
+        if (estAligner(c)) {
+            System.out.println(" Le joueur " + c + " a gagné");
+            System.exit(0);
         }
-
     }
 
 }

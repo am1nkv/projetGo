@@ -34,7 +34,7 @@ public class TestJeu {
         c.play("black","D4");
         c.play("black","D5");
         c.play("black","D6");
-        Assertions.assertEquals(true,c.estAligner(4, Pion.Couleur.O));
+        Assertions.assertEquals(true,c.estAligner( Pion.Couleur.O));
     }
 
     @Test

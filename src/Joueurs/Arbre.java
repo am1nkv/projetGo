@@ -1,10 +1,6 @@
 package Joueurs;
-
-import Jeu.Case;
 import Jeu.Pion;
 import Jeu.Plateau;
-
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
