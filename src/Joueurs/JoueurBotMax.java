@@ -7,8 +7,10 @@ import java.util.Random;
 
 import static Jeu.Pion.Couleur.X;
 
-public class JoueurBotMax {
-
+public class JoueurBotMax extends Joueur {
+    public JoueurBotMax(String c) {
+        super(c);
+    }
 
 
 }

@@ -1,7 +1,6 @@
 package IHM;
 
 import Jeu.Pion;
-import Joueurs.IJoueur;
 import Joueurs.JoueurBotNaif;
 import Joueurs.JoueurHumain;
 import Jeu.Plateau;
@@ -27,39 +26,24 @@ public class Jeu {
                 jB = new JoueurBotNaif(couleur);
 
         }
-
-        creationPlateau("5");
-    }
-
-    public static void creationPlateau(String s) {
-        int sz = 0;
-        try {
-            sz = Integer.parseInt(s);
-        } catch (NumberFormatException e) {
-            System.out.println(reponse(false) + " illegal move");
-            return;
-        }
-        if(sz < 3){
-            System.out.println(reponse(false) + " illegal move");
-            return;
-        }
-        p = new Plateau(sz);
-        System.out.println(reponse(true));
+        boardsize("5");
     }
 
 
     public static void partie(String coord){
-        if(AuTourDe==jH.getC()){
+        if(AuTourDe==jH.getCouleur()){
             jH.jouerHumain(p , coord);
         }
-        estGagnant(AuTourDe);
         AuTourDe=AuTourDe==O?X:O;
         System.out.println(p.toString());
+        estGagnant(AuTourDe);
     }
 
     public static void partieB(){
-        if(AuTourDe==jB.getC()){
-            jB.jouer(p);
+        if(AuTourDe==jB.getCouleur()){
+            jB.jouer();
+            AuTourDe=AuTourDe==O?X:O;
+            estGagnant(AuTourDe);
         }
         else{
             System.out.println("a vous de jouer");
@@ -67,50 +51,22 @@ public class Jeu {
 
     }
 
-    public static boolean alignement(int debutX, int debutY, int dx, int dy, Pion.Couleur c) {
-        int tmp = 0;
-        for (int i = 0; i < nb_alignemnts; i++) {
-            int x = debutX + i * dx;
-            int y = debutY + i * dy;
-            if (x < 0 || x >= p.getTaille() || y < 0 || y >= p.getTaille()) {
-                return false;
-            }
-
-            if (p.getCase(x, y) == null || p.getCase(x, y).getPion() == null) {
-                return false;
-            }
-            if (p.getCase(x, y).getPion().getCouleur() == c) {
-                tmp++;
-            }
-
+    public static void partieG(){
+        if(AuTourDe==jH.getCouleur()){
+            jH.jouer();
         }
-
-        return tmp == nb_alignemnts;
-    }
-
-    public static boolean estAligner(Pion.Couleur c) {
-        for (int i = 0; i < p.getTaille(); i++) {
-            for (int y = 0; y < p.getTaille(); y++) {
-                if (alignement(i, y, 1, 0, c)) return true;
-                if (alignement(i, y, 1, -1, c)) return true;
-                if (alignement(i, y, 0, 1, c)) return true;
-                if (alignement(i, y, -1, 0, c)) return true;
-                if (alignement(i, y, -1, -1, c)) return true;
-                if (alignement(i, y, 0, -1, c)) return true;
-            }
-        }
-        return false;
-    }
-
-    public static void estGagnant(Pion.Couleur c) {
-        if (estAligner(c)) {
-            System.out.println(" Le joueur " + c + " a gagné");
-            System.exit(0);
-        }
+        AuTourDe=AuTourDe==O?X:O;
+        System.out.println(p.toString());
+        estGagnant(AuTourDe);
     }
 
 
+    public static String joueurActuel(){
+        if(AuTourDe == jH.getCouleur()){
+            return "human";
+        }
+        return "randomBot";
 
-
+    }
 
 }

@@ -1,6 +1,6 @@
 package Jeu;
 
-import Jeu.Case;
+import IHM.Cmd;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +23,7 @@ public class Plateau {
             plateau.add(t);
         }
     }
+
     public void clearPlateau() {
         for (List<Case> c : plateau) {
             for (Case cs : c) {
@@ -30,9 +31,10 @@ public class Plateau {
             }
         }
     }
+
     public void toSrtring() {
         int ln = plateau.size();
-        int cl= plateau.get(0).size();
+        int cl = plateau.get(0).size();
         System.out.print("  ");
         for (int i = 0; i < cl; i++) {
             System.out.print((char) ('A' + i) + " ");
@@ -63,6 +65,7 @@ public class Plateau {
     public int getTaille() {
         return plateau.size();
     }
+
     public boolean aCaseVide() {
         for (List<Case> row : plateau) {
             for (Case c : row) {
@@ -73,8 +76,8 @@ public class Plateau {
         }
         return false;
     }
-
-
-
+    public boolean aGagner(Pion.Couleur c) {
+        return Cmd.estAligner(c);
+    }
 
 }
