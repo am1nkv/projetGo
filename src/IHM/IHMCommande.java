@@ -39,6 +39,9 @@ public class IHMCommande {
             case "quit":
                 Cmd.quit();
                 break;
+            case "minmax":
+                Cmd.minMax(l.get(1));
+                break;
             default:
                 System.out.println("Commande inconnue !");
                 break;

@@ -3,6 +3,8 @@ package IHM;
 import Jeu.Case;
 import Jeu.Pion;
 import Jeu.Plateau;
+import Joueurs.Arbre2;
+import Joueurs.JoueurBotMax;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +22,8 @@ public class Cmd {
 
     public static List<String> recuperer(String s) {
         if (s.trim().isEmpty()) { // Vérifie si la chaîne est vide ou null
-           System.out.println(reponse(false));
-           return new ArrayList<>();
+            System.out.println(reponse(false));
+            return new ArrayList<>();
         }
 
         String[] mots = s.split(" ");
@@ -49,7 +51,7 @@ public class Cmd {
             System.out.println(reponse(false) + " illegal move");
             return;
         }
-        if(sz < 3){
+        if (sz < 3) {
             System.out.println(reponse(false) + " illegal move");
             return;
         }
@@ -98,7 +100,7 @@ public class Cmd {
 
 
     public static void clearboard() {
-        if(p==null){
+        if (p == null) {
             System.out.println(reponse(false));
             return;
         }
@@ -107,7 +109,7 @@ public class Cmd {
     }
 
     public static void showboard() {
-        if(p == null){
+        if (p == null) {
             System.out.println(reponse(false));
             return;
         }
@@ -216,5 +218,19 @@ public class Cmd {
             System.exit(0);
         }
     }
+
+    public static void minMax(String c) {
+        Arbre2 move = Arbre2.minMax(p, Integer.MIN_VALUE, Integer.MAX_VALUE, new JoueurBotMax(c), true);
+
+        if (move.getX() < 0 || move.getY() < 0 || move.getX() >= p.getTaille() || move.getY() >= p.getTaille()) {
+            throw new IllegalStateException("Aucun coup valide trouvé dans minMax.");
+        }
+
+        Pion.Couleur couleur = c.equalsIgnoreCase("black") ? X : Pion.Couleur.O;
+        p.getCase(move.getX(), move.getY()).setPion(new Pion(couleur));
+
+        p.toSrtring();
+    }
+
 
 }
