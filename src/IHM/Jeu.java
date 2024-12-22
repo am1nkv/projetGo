@@ -15,52 +15,64 @@ public class Jeu {
     private static JoueurHumain jH;
     private static JoueurBotNaif jB;
     private static Pion.Couleur AuTourDe;
-    private static Plateau p;
-    private static int nb_alignemnts = 5;
 
     public static void lancer(String couleur, String type) {
-        Pion.Couleur couleurEnum = couleur.equals("black") ? Pion.Couleur.X : Pion.Couleur.O;
-        jH = new JoueurHumain(couleur, type);
-        jB = new JoueurBotNaif(jH.getCouleur() == X ? "white" : "black" , "bot");
-        AuTourDe = couleurEnum;
+        if (type.equalsIgnoreCase("human")) {
+            jH = new JoueurHumain(couleur, type);
+        } else if (type.equalsIgnoreCase("randomBot")) {
+            jB = new JoueurBotNaif(couleur, type);
+        }
+
+        if (couleur.equals("black")) {
+            AuTourDe = Pion.Couleur.X;
+        } else {
+            AuTourDe = Pion.Couleur.O;
+        }
+
         clearboard();
         boardsize("5");
     }
 
 
 
-    public static void partie(String coord){
-        if(AuTourDe==jH.getCouleur()){
-            jH.jouerHumain(coord);
-            AuTourDe=AuTourDe==O?X:O;
-            System.out.println("humain a jouer");
+    public static void partie(String coord) {
+        if (AuTourDe == jH.getCouleur()) {
+                jH.jouerHumain(coord); // Le coup est valide
+                AuTourDe = AuTourDe == O ? X : O;
+                System.out.println("Humain a joué.");
+                showboard();
+                partieB(); // Laissez le bot jouer immédiatement après.
+
         }
 
-        //System.out.println(p.toString());
-        showboard();
         estGagnant(AuTourDe);
     }
 
-    public static void partieB(){
-        if(AuTourDe== jB.getCouleur()){
+
+
+    public static void partieB() {
+        if (AuTourDe == jB.getCouleur()) {
             jB.jouer();
-            AuTourDe=AuTourDe==O?X:O;
+            AuTourDe = AuTourDe == O ? X : O;
             estGagnant(AuTourDe);
-            System.out.println("le bot a joué");
-        }
-        else{
-            System.out.println("a vous de jouer");
+            System.out.println("Le bot a joué.");
+        } else {
+            System.out.println("C'est au joueur humain de jouer.");
         }
         showboard();
     }
+
+
 
     public static void partieG(){
         if(AuTourDe==jH.getCouleur()){
             jH.jouer();
+            AuTourDe=AuTourDe==O?X:O;
+            showboard();
+            partieB(); // Laissez le bot jouer immédiatement après.
         }
-        AuTourDe=AuTourDe==O?X:O;
+
         //System.out.println(p.toString());
-        showboard();
         estGagnant(AuTourDe);
     }
 

@@ -25,7 +25,9 @@ public class JoueurHumain  {
     }
 
     public void jouer() {
-        genmove(String.valueOf(c));
+        System.out.println(c);
+        String s = c==X ? "black" : "white";
+        genmove(s);
     }
     public String getType(){
         return type;

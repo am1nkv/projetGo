@@ -63,35 +63,39 @@ public class Cmd {
     ;
 
     public static void play(String couleur, String coord) {
-        //Si le premier coup n'est pas le pion noir
-        if (estPremierCoupDuJeu && !couleur.equals("black") && !couleur.equals("white")) {
+        System.out.println("Coordonnée reçue : " + coord); // Débogage
+
+        if (coord.length() < 2 || !Character.isLetter(coord.charAt(0)) || !Character.isDigit(coord.charAt(1))) {
+            System.out.println(reponse(false) + " invalid vertex, bad format");
+            return;
+        }
+
+        Pion.Couleur color = couleur.equalsIgnoreCase("black") ? X : Pion.Couleur.O;
+        String chiffres = coord.substring(1);
+        int x = Character.toUpperCase(coord.charAt(0)) - 'A';
+        int y = p.getTaille() - Integer.parseInt(chiffres);
+
+        System.out.println("Coordonnées calculées : x = " + x + ", y = " + y); // Débogage
+        System.out.println("Taille du plateau : " + p.getTaille()); // Débogage
+
+        if (x < 0 || x >= p.getTaille() || y < 0 || y >= p.getTaille()) {
+            System.out.println(reponse(false) + " invalid vertex, out of bounds");
+            return;
+        }
+
+        Case casee = p.getCase(x, y);
+        if (!casee.isEmpty()) {
             System.out.println(reponse(false) + " invalid vertex, illegal move");
             return;
         }
 
-        if(p==null){
-            System.out.println(reponse(false) +" invalid vertex, illegal move");
-            return;
-        }
-        Pion.Couleur color =
-                couleur.equalsIgnoreCase("black") ? X : Pion.Couleur.O;
-
-        String chiffres = coord.substring(1);
-        int x = coord.charAt(0) - 'A';
-        int y = p.getTaille() - Integer.parseInt(chiffres);
-        Case casee = p.getCase(x, y);
-
-        if (!casee.isEmpty()) {
-            System.out.print(reponse(false) + " invalid vertex, illegal move");
-            return;
-        }
         casee.setPion(new Pion(color));
         System.out.print(reponse(true));
 
         estPremierCoupDuJeu = false;
-
-        estGagnant( color);
+        estGagnant(color);
     }
+
 
     public static void clearboard() {
         if(p==null){
@@ -112,33 +116,39 @@ public class Cmd {
     }
 
     public static void genmove(String couleur) {
-        if(p==null){
+        if (p == null) {
             System.out.println(reponse(false) + " illegal move");
             return;
         }
         Random r = new Random();
         String coord;
-        Pion.Couleur color =
-                couleur.equalsIgnoreCase("black") ? X : Pion.Couleur.O;
-        while (p.aCaseVide()) {
-            coord = "";
-            int y = r.nextInt(p.getTaille()) + 1;
-            int x = r.nextInt(p.getTaille());
-            char lettre = (char) ('A' + x);
+        Pion.Couleur color = couleur.equalsIgnoreCase("black") ? X : Pion.Couleur.O;
+        boolean coupValide = false;
 
-            coord += lettre + "" + y;
-
-            Case casee = p.getCase(x, y);
-
-            if (casee.isEmpty()) {
-                play(couleur, coord);
-                System.out.println(" " + coord);
+        while (!coupValide) {
+            if (!p.aCaseVide()) {
+                System.out.println(reponse(false) + "plateau rempli");
                 return;
             }
+
+            coord = "";
+            int y = r.nextInt(p.getTaille()) + 1; // Ajustement pour les indices 1-based
+            int x = r.nextInt(p.getTaille());
+            char lettre = (char) ('A' + x);
+            coord += lettre + "" + y;
+
+            if (x < p.getTaille() && y <= p.getTaille()) {
+                Case casee = p.getCase(x, p.getTaille() - y);
+                if (casee.isEmpty()) {
+                    play(couleur, coord);
+                    System.out.println(" " + coord);
+                    coupValide = true;
+                }
+            }
         }
-        estGagnant( color);
-        System.out.println(reponse(false) + "plateau rempli");
+        estGagnant(color);
     }
+
 
     public static void quit() {
         System.out.println(reponse(true));

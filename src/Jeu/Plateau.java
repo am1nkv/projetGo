@@ -59,6 +59,9 @@ public class Plateau {
     }
 
     public Case getCase(int x, int y) {
+        if (x < 0 || x >= taille || y < 0 || y >= taille) {
+            throw new IndexOutOfBoundsException("Coordonnées hors limites : x = " + x + ", y = " + y + ", taille = " + taille);
+        }
         return plateau.get(y).get(x);
     }
 

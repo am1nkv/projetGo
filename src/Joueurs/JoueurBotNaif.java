@@ -17,8 +17,9 @@ public class JoueurBotNaif {
 
 
     public void jouer() {
-
-        genmove("white");
+        System.out.println(c);
+        String s = c==X ? "black" : "white";
+        genmove(s);
     }
 
     public static Pion.Couleur getCouleur() {
