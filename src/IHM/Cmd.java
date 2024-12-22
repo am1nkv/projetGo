@@ -229,7 +229,7 @@ public class Cmd {
         Pion.Couleur couleur = c.equalsIgnoreCase("black") ? X : Pion.Couleur.O;
         p.getCase(move.getX(), move.getY()).setPion(new Pion(couleur));
 
-        p.toSrtring();
+        p.toSrtring(); //
     }
 
 

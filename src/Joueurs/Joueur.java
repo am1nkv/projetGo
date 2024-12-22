@@ -23,7 +23,7 @@ public abstract class Joueur implements IJoueur{
 
         return (c == Pion.Couleur.X) ? Pion.Couleur.O : Pion.Couleur.X;
     }
-
+//
 
 
 }
