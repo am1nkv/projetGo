@@ -13,16 +13,22 @@ import static IHM.Jeu.lancer;
 
 public class Main {
     public static void main(String[] args) {
+        boolean partie = false;
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String commande = scanner.nextLine().toLowerCase();
             List<String> l = Cmd.recuperer(commande);
             if(!l.isEmpty()){
-                if(Objects.equals(l.get(0), "set_player")){
+                if(Objects.equals(l.get(0), "set_player")) {
                     IHMPartie.partie(l);
-                } else{
+                    partie = true;
+                } else if (partie) {
+                    IHMPartie.partie(l);
+                }
+                else {
                     IHMCommande.protocole(l);
                 }
+
             }
             System.out.println();
 

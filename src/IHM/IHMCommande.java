@@ -8,11 +8,11 @@ public class IHMCommande {
     public static void protocole(List<String> l ){
         switch (l.get(0)) {
             case "boardsize":
-                if (l.size() > 1) {
-                    Cmd.boardsize(l.get(1));
-                } else {
+                System.out.println("je suis la");
+                Cmd.boardsize(l.get(1));
+                if(l.size() < 2)
                     System.out.println(reponse(false) + " board size outside engine's limit");
-                }
+
                 break;
             case "play":
                 if (l.size() > 2) {
