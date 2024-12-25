@@ -4,6 +4,7 @@ import Jeu.Case;
 import Jeu.Pion;
 import Jeu.Plateau;
 import Joueurs.Arbre2;
+import Joueurs.IJoueur;
 import Joueurs.JoueurBotMax;
 
 import java.util.ArrayList;
@@ -65,7 +66,7 @@ public class Cmd {
     ;
 
     public static void play(String couleur, String coord) {
-        System.out.println("Coordonnée reçue : " + coord); // Débogage
+        /*System.out.println("Coordonnée reçue : " + coord); // Débogage*/
 
         if (coord.length() < 2 || !Character.isLetter(coord.charAt(0)) || !Character.isDigit(coord.charAt(1))) {
             System.out.println(reponse(false) + " invalid vertex, bad format");
@@ -77,9 +78,9 @@ public class Cmd {
         int x = Character.toUpperCase(coord.charAt(0)) - 'A';
         int y = p.getTaille() - Integer.parseInt(chiffres);
 
-        System.out.println("Coordonnées calculées : x = " + x + ", y = " + y); // Débogage
+       /* System.out.println("Coordonnées calculées : x = " + x + ", y = " + y); // Débogage
         System.out.println("Taille du plateau : " + p.getTaille()); // Débogage
-
+*/
         if (x < 0 || x >= p.getTaille() || y < 0 || y >= p.getTaille()) {
             System.out.println(reponse(false) + " invalid vertex, out of bounds");
             return;
@@ -219,8 +220,8 @@ public class Cmd {
         }
     }
 
-    public static void minMax(String c) {
-        Arbre2 move = Arbre2.minMax(p, Integer.MIN_VALUE, Integer.MAX_VALUE, new JoueurBotMax(c), true);
+    public static void minMax(String c , IJoueur j) {
+        Arbre2 move = Arbre2.minMax(p, Integer.MIN_VALUE, Integer.MAX_VALUE, j, true);
 
         if (move.getX() < 0 || move.getY() < 0 || move.getX() >= p.getTaille() || move.getY() >= p.getTaille()) {
             throw new IllegalStateException("Aucun coup valide trouvé dans minMax.");

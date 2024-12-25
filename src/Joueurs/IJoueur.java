@@ -4,9 +4,13 @@ import Jeu.Pion;
 import Jeu.Plateau;
 
 public interface IJoueur {
-    public void jouer();
+    void jouer();
+
+   void jouer(String coord) ;
 
     Pion.Couleur getCouleur();
 
     Pion.Couleur getCouleurInverse();
+
+    String getType();
 }

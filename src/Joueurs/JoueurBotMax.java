@@ -1,15 +1,23 @@
 package Joueurs;
 
-import Jeu.Pion;
+import static IHM.Cmd.*;
+
 
 public class JoueurBotMax  extends Joueur {
-    Pion.Couleur c;
-    public JoueurBotMax(String c) {
-        super(c);
+
+    public JoueurBotMax(String couleur ,String type) {
+        super(couleur, type);
     }
 
     @Override
     public void jouer() {
+        System.out.println("JoueurBotMax jouer");
+      minMax(getCouleurNom() , this);
 
+    }
+
+    @Override
+    public void jouer(String coord) {
+        throw new UnsupportedOperationException("Cette méthode n'est pas supportée pour ce type de joueur.");
     }
 }

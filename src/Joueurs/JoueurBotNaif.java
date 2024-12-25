@@ -1,33 +1,19 @@
 package Joueurs;
 
-import Jeu.Pion;
-
 import static IHM.Cmd.*;
-import static Jeu.Pion.Couleur.O;
-import static Jeu.Pion.Couleur.X;
 
-public class JoueurBotNaif {
-    private static Pion.Couleur c;
-    String type;
+public class JoueurBotNaif extends Joueur {
 
-    public JoueurBotNaif(String c , String type) {
-        this.c = c.equals("black") ? X : O;
-        this.type = type;
+    public JoueurBotNaif(String couleur, String type) {
+        super(couleur, type);
     }
 
-
+    @Override
     public void jouer() {
-        System.out.println(c);
-        String s = c==X ? "black" : "white";
-        genmove(s);
+        System.out.println(couleur);
+        genmove(getCouleurNom());
     }
-
-    public static Pion.Couleur getCouleur() {
-        return c;
-    }
-
-
-    public String getType(){
-        return type;
+    public void jouer(String coord) {
+        throw new UnsupportedOperationException("Cette méthode n'est pas supportée pour ce type de joueur.");
     }
 }
