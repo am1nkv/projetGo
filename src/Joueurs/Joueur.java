@@ -21,8 +21,8 @@ public abstract class Joueur implements IJoueur {
     public String getType() {
         return type;
     }
-
-    protected String getCouleurNom() {
+    @Override
+    public String getCouleurNom() {
         return couleur == Pion.Couleur.X ? "black" : "white";
     }
 

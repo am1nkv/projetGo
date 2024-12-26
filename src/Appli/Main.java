@@ -9,9 +9,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
-import static IHM.Cmd.reponse;
-import static IHM.Jeu.lancer;
-import static IHM.Jeu.partie;
+import static IHM.Cmd.boardsize;
+
 
 public class Main {
 
@@ -30,29 +29,37 @@ public class Main {
                         if(l.get(1).equals("black") && l.get(2).equals("human")) {
                             auto = false;
                         }
-                        lancer(l.get(1), l.get(2));
-                        nbJoueur++;
+                        try{
+                            if(IHM.Jeu.lancer(l.get(1), l.get(2), l.get(3))){
+                                nbJoueur++;
+                            }
+                        }
+                        catch (Exception e){
+                            if(IHM.Jeu.lancer(l.get(1), l.get(2) , String.valueOf(Integer.MAX_VALUE))) {
+                                nbJoueur++;
+                            }
+                        }
+
                         if (!Objects.equals(l.get(2), "human")) {
                             partieBot = true;
-
-
                         }
                         if (nbJoueur == 2) {
+                            System.out.println(auto);
                             /*System.out.println("tes la ou pas ma star ?");*/
                             if(auto)
                                 IHMPartie.partie(l, true);
-
                         }
 
+                }
+                else if(Objects.equals(l.get(0), "boardsize")){
+                    boardsize(l.get(1));
                 }
                 else{
                     if (partieBot) {
                         IHMPartie.partie(l, false);
-                        /*System.out.println("ta flop ? ");*/
                     }
                     else {
                         IHMCommande.protocole(l);
-                       /* System.out.println("ici pro");*/
                     }
                 }
 

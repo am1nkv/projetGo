@@ -12,19 +12,36 @@ public class Jeu {
     private static Joueur j1; // Peut être un joueur humain ou un bot
     private static Joueur j2; // Peut être un joueur humain ou un bot
     private static Pion.Couleur AuTourDe;
+    private static int profondeur;
 
-    public static void lancer(String couleur, String typeJoueur) {
+    public static boolean lancer(String couleur, String typeJoueur, String pf) {
+        int p = Integer.parseInt(pf);
+        profondeur = p;
         if (j1 != null) {
-            j2 = initialiserJoueur(couleur, typeJoueur);
-            return;
+            if(initialiserJoueur(couleur, typeJoueur) != null && !Objects.equals(j1.getCouleurNom(), couleur)){
+                j2 = initialiserJoueur(couleur, typeJoueur);
+
+            }
+            else{
+                System.out.println("dommage");
+            }
+        }else if(initialiserJoueur(couleur, typeJoueur) != null){
+            j1 = initialiserJoueur(couleur, typeJoueur);
+            return true;
         }
-        j1 = initialiserJoueur(couleur, typeJoueur);
 
-        // Détermine qui commence selon la couleur
-        AuTourDe = (couleur.equals("black")) ? Pion.Couleur.X : Pion.Couleur.O;
+        if(j1 != null && j2 != null){
+            AuTourDe = (couleur.equals("black")) ? Pion.Couleur.X : Pion.Couleur.O;
 
-        /*clearboard();*/
-        boardsize("4");
+            /*clearboard();*/
+            /*boardsize("3");*/
+            return true;// Détermine qui commence selon la couleur
+        }
+        return false;
+    }
+
+    public static int getProfondeur(){
+        return profondeur;
     }
 
     private static Joueur initialiserJoueur(String couleur, String type) {
@@ -38,6 +55,7 @@ public class Jeu {
             joueur = new JoueurBotMax(couleur, "minimax");
         } else {
             System.out.println("Type de joueur non valide.");
+            return null;
         }
 
         return joueur;
@@ -54,9 +72,9 @@ public class Jeu {
                 joueurActuel.jouer(coord); // Joueur humain joue avec des coordonnées
             }
         } else {
-            System.out.println("encore la ");
+
             joueurActuel.jouer(); // Bot joue automatiquement
-            System.out.println("on est sortie de la gav");
+
         }
 
         // Afficher le plateau
@@ -72,10 +90,11 @@ public class Jeu {
         Joueur prochainJoueur = (AuTourDe == j1.getCouleur()) ? j1 : j2;
         System.out.println(prochainJoueur.getType());
         if (!Objects.equals(prochainJoueur.getType(), "human") ) {
-            System.out.println("on est dans la viande");
+
             partie(null); // Appel récursif pour faire jouer le bot
-            System.out.println("on a quitté la viande");
+
         }
+        finJeu();
     }
 
 

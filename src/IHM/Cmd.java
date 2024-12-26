@@ -3,9 +3,8 @@ package IHM;
 import Jeu.Case;
 import Jeu.Pion;
 import Jeu.Plateau;
-import Joueurs.Arbre2;
+import Joueurs.Arbre;
 import Joueurs.IJoueur;
-import Joueurs.JoueurBotMax;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,9 +77,7 @@ public class Cmd {
         int x = Character.toUpperCase(coord.charAt(0)) - 'A';
         int y = p.getTaille() - Integer.parseInt(chiffres);
 
-       /* System.out.println("Coordonnées calculées : x = " + x + ", y = " + y); // Débogage
-        System.out.println("Taille du plateau : " + p.getTaille()); // Débogage
-*/
+
         if (x < 0 || x >= p.getTaille() || y < 0 || y >= p.getTaille()) {
             System.out.println(reponse(false) + " invalid vertex, out of bounds");
             return;
@@ -97,6 +94,7 @@ public class Cmd {
 
         estPremierCoupDuJeu = false;
         estGagnant(color);
+        finJeu();
     }
 
 
@@ -150,6 +148,7 @@ public class Cmd {
             }
         }
         estGagnant(color);
+        finJeu();
     }
 
 
@@ -216,15 +215,18 @@ public class Cmd {
     public static void estGagnant(Pion.Couleur c) {
         if (estAligner(c)) {
             System.out.println(" Le joueur " + c + " a gagné");
+            showboard();
             System.exit(0);
         }
     }
 
     public static void minMax(String c , IJoueur j) {
-        Arbre2 move = Arbre2.minMax(p, Integer.MIN_VALUE, Integer.MAX_VALUE, j, true);
+
+        Arbre move = Arbre.minMax(p, Integer.MIN_VALUE, Integer.MAX_VALUE, j, true , Jeu.getProfondeur());
 
         if (move.getX() < 0 || move.getY() < 0 || move.getX() >= p.getTaille() || move.getY() >= p.getTaille()) {
-            throw new IllegalStateException("Aucun coup valide trouvé dans minMax.");
+            //System.out.println("Aucun coup valide trouvé dans minMax.");
+            finJeu();
         }
 
         Pion.Couleur couleur = c.equalsIgnoreCase("black") ? X : Pion.Couleur.O;
@@ -233,5 +235,34 @@ public class Cmd {
         p.toSrtring(); //
     }
 
+    public static void finJeu() {
+        if (!p.aCaseVide() && !estAligner(Pion.Couleur.X) && !estAligner(Pion.Couleur.O)) {
+            System.out.println(" Le jeu est terminé : match nul, le plateau est plein !");
+            showboard();
+            System.exit(0);
+        }
+    }
+
+    public static String name(){
+      return "c'est nous les plus mechants sur le piano ma cherie demande a Rhianna";
+    }
+   public static int protocol_version(){
+        return 2;
+
+   }
+   public static int version(){
+        return 1;
+   }
+   public static String list_commands(){
+        return "boardsize \n" +
+                "clear_board \n" +
+                "genmove\n" +
+                "name \n" +
+                "play \n" +
+                "protocol_version \n" +
+                "quit \n" +
+                "showboard\n" +
+                "version";
+   }
 
 }

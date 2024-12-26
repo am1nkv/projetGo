@@ -2,6 +2,7 @@ package IHM;
 
 import java.util.List;
 
+import static IHM.Cmd.boardsize;
 import static IHM.Cmd.showboard;
 import static IHM.Jeu.partie;
 
@@ -36,9 +37,9 @@ public class IHMPartie {
                 break;
 
              */
-            case "minimax":
+           /* case "minimax":
                 Jeu.partie(l.get(1));
-                break;
+                break;*/
             default:
                 System.out.println("Commande inconnue.");
                 break;

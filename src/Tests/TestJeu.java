@@ -56,15 +56,7 @@ public class TestJeu {
         Assertions.assertEquals("." , c.getP().getCase(3 , 4).toString());
         Assertions.assertEquals("." , c.getP().getCase(5 , 2).toString());
     }
-    @Test
-    public void TestArbre(){
-        Plateau p = new Plateau(2);
-        Arbre arbre = new Arbre(p, Pion.Couleur.O);
-        arbre.AjtrNoead(arbre);
 
-
-
-    }
 
 
     /*@Test

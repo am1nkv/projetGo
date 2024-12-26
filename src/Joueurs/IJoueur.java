@@ -13,4 +13,5 @@ public interface IJoueur {
     Pion.Couleur getCouleurInverse();
 
     String getType();
+    String getCouleurNom() ;
 }
