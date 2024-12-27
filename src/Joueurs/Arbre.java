@@ -41,12 +41,12 @@ public class Arbre {
                     Pion pion = new Pion(j ? joueur.getCouleur() : joueur.getCouleurInverse());
                     p.getCase(x, y).setPion(pion);
 
-                    Arbre move = minMax(p, a, b, joueur, !j,profondeurMax-1);
+                    Arbre move = minMax(p, a, b, joueur, !j, profondeurMax - 1);
                     p.getCase(x, y).removePion();
 
                     move.x = x;
                     move.y = y;
-                    move.depth+=1;
+                    move.depth += 1;
 
                     if (j) {
                         if (move.score > bestMove.score || (move.score == bestMove.score && move.depth < bestMove.depth)) {
@@ -62,9 +62,8 @@ public class Arbre {
                 }
             }
         }
-return bestMove;
+        return bestMove;
     }
-
 
     public static int note(Plateau p, IJoueur joueur) {
         if (p.aGagner(joueur.getCouleur()))
