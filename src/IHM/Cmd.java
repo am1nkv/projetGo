@@ -5,12 +5,9 @@ import Jeu.Pion;
 import Jeu.Plateau;
 import Joueurs.Arbre;
 import Joueurs.IJoueur;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import static Jeu.Pion.Couleur.X;
 
 public class Cmd {
 
@@ -21,7 +18,7 @@ public class Cmd {
 
 
     public static List<String> recuperer(String s) {
-        if (s.trim().isEmpty()) { // Vérifie si la chaîne est vide ou null
+        if (s.trim().isEmpty()) {      //Vérifie si la chaîne est vide ou null
             System.out.println(reponse(false));
             return new ArrayList<>();
         }
@@ -65,7 +62,7 @@ public class Cmd {
     ;
 
     public static void play(String couleur, String coord) {
-        /*System.out.println("Coordonnée reçue : " + coord); // Débogage*/
+        //System.out.println("Coordonnée reçue : " + coord); //Débogage
 
         if (coord.length() < 2 || !Character.isLetter(coord.charAt(0)) || !Character.isDigit(coord.charAt(1))) {
             System.out.println(reponse(false) + " invalid vertex, bad format");
@@ -192,9 +189,7 @@ public class Cmd {
             if (p.getCase(x, y).getPion().getCouleur() == c) {
                 tmp++;
             }
-
         }
-
         return tmp == nb_alignemnts;
     }
 
@@ -224,7 +219,6 @@ public class Cmd {
     public static void minMax(String c , IJoueur j) {
 
         Arbre move = Arbre.minMax(p, Integer.MIN_VALUE, Integer.MAX_VALUE, j, true , Jeu.getProfondeur());
-
         if (move.getX() < 0 || move.getY() < 0 || move.getX() >= p.getTaille() || move.getY() >= p.getTaille()) {
             //System.out.println("Aucun coup valide trouvé dans minMax.");
             finJeu();
@@ -232,15 +226,14 @@ public class Cmd {
 
         Pion.Couleur couleur = Jeu.getCouleurC(c);
         p.getCase(move.getX(), move.getY()).setPion(new Pion(couleur));
-
         p.toSrtring(); //
     }
 
     public static void finJeu() {
         if (!p.aCaseVide() && !estAligner(Pion.Couleur.X) && !estAligner(Pion.Couleur.O)) {
             System.out.println(reponse(true) + " Le jeu est terminé : match nul, le plateau est plein !");
-           /* showboard();*/
-          /*  System.exit(0);*/
+            //showboard();
+            //System.exit(0);
         }
     }
 
@@ -267,5 +260,4 @@ public class Cmd {
                 "showboard\n" +
                 "version";
    }
-
 }

@@ -15,7 +15,6 @@ public class JoueurBotMax  extends Joueur {
       minMax(getCouleurNom() , this);
 
     }
-
     @Override
     public void jouer(String coord) {
         throw new UnsupportedOperationException("Cette méthode n'est pas supportée pour ce type de joueur.");

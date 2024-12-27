@@ -1,10 +1,7 @@
 package IHM;
 
 import java.util.List;
-
-import static IHM.Cmd.boardsize;
 import static IHM.Cmd.showboard;
-import static IHM.Jeu.partie;
 
 public class IHMPartie {
     public static void partie(List<String> l , boolean debut) {
@@ -16,8 +13,8 @@ public class IHMPartie {
         switch (l.get(0)) {
 
             case "play":
-                Jeu.partie( l.get(2) ,l.get(1) ); // La logique du bot est déjà incluse
-                /*System.out.println("play fait");*/
+                Jeu.partie( l.get(2) ,l.get(1) ); //La logique du bot est déjà incluse
+                //System.out.println("play fait");
                 break;
 
             case "genmove":
@@ -31,12 +28,12 @@ public class IHMPartie {
                 }
                 break;
 
-                case "showboard":
+            case "showboard":
                     showboard();
                     break;
 
             default:
-                System.out.println("Commande inconnue.");
+                System.out.println("illegal move");
                 break;
         }
     }

@@ -1,9 +1,6 @@
 package IHM;
 
 import static IHM.Cmd.reponse;
-import static IHM.Jeu.lancer;
-import static IHM.Jeu.partie;
-
 import java.util.List;
 
 public class IHMCommande {
@@ -12,7 +9,7 @@ public class IHMCommande {
         switch (l.get(0)) {
 
             case "boardsize":
-                /*System.out.println("je suis la");*/
+                //System.out.println("je suis la");
                 Cmd.boardsize(l.get(1));
                 if(l.size() < 2)
                     System.out.println(reponse(false) + " board size outside engine's limit");
@@ -44,7 +41,7 @@ public class IHMCommande {
                 Cmd.quit();
                 break;
             default:
-                System.out.println("Commande inconnue !");
+                System.out.println("illegal move");
                 break;
         }
     }

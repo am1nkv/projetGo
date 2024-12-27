@@ -3,22 +3,18 @@ package Appli;
 import IHM.Cmd;
 import IHM.IHMCommande;
 import IHM.IHMPartie;
-
-import javax.swing.*;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
-
 import static IHM.Cmd.*;
-
 
 public class Main {
 
     public static void main(String[] args) {
-        /*boolean debut= true;*/
-         boolean partieBot = false;
-         boolean auto = true;
-         int nbJoueur = 0;
+        //boolean debut= true;
+        boolean partieBot = false;
+        boolean auto = true;
+        int nbJoueur = 0;
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String commande = scanner.nextLine().toLowerCase();
@@ -43,17 +39,15 @@ public class Main {
                             partieBot = true;
                         }
                         if (nbJoueur == 2) {
-                            /*System.out.println(auto);*/
-                            /*System.out.println("tes la ou pas ma star ?");*/
+                            //System.out.println(auto);
+                            //System.out.println("tes la ou pas ma star ?");
                             if(auto)
                                 IHMPartie.partie(l, true);
                         }
                         break;
-
                     case "boardsize":
                         boardsize(l.get(1));
                         break;
-
                     case "name":
                         System.out.println(reponse(true) + " " + name());
                         break;
@@ -74,13 +68,8 @@ public class Main {
                             IHMCommande.protocole(l);
                         }
                 }
-
-
             }
             System.out.println();
-
-
-
         }
     }
 }

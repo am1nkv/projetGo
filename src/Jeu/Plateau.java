@@ -1,7 +1,6 @@
 package Jeu;
 
 import IHM.Cmd;
-
 import java.util.ArrayList;
 import java.util.List;
 
