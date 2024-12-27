@@ -8,7 +8,7 @@ public abstract class Joueur implements IJoueur {
     protected String type;
 
     public Joueur(String couleur, String type) {
-        this.couleur = couleur.equalsIgnoreCase("black") ? Pion.Couleur.X : Pion.Couleur.O;
+        this.couleur = IHM.Jeu.getCouleurC(couleur);
         this.type = type;
     }
 
@@ -23,6 +23,7 @@ public abstract class Joueur implements IJoueur {
     }
     @Override
     public String getCouleurNom() {
+
         return couleur == Pion.Couleur.X ? "black" : "white";
     }
 

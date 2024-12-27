@@ -26,7 +26,7 @@ public class IHMCommande {
                 }
 
                 break;
-            case "clearboard":
+            case "clear_board":
                 Cmd.clearboard();
                 break;
             case "showboard":

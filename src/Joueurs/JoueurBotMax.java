@@ -11,7 +11,7 @@ public class JoueurBotMax  extends Joueur {
 
     @Override
     public void jouer() {
-        System.out.println("JoueurBotMax jouer");
+
       minMax(getCouleurNom() , this);
 
     }

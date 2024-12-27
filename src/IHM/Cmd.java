@@ -72,7 +72,7 @@ public class Cmd {
             return;
         }
 
-        Pion.Couleur color = couleur.equalsIgnoreCase("black") ? X : Pion.Couleur.O;
+        Pion.Couleur color = Jeu.getCouleurC(couleur);
         String chiffres = coord.substring(1);
         int x = Character.toUpperCase(coord.charAt(0)) - 'A';
         int y = p.getTaille() - Integer.parseInt(chiffres);
@@ -85,12 +85,12 @@ public class Cmd {
 
         Case casee = p.getCase(x, y);
         if (!casee.isEmpty()) {
-            System.out.println(reponse(false) + " invalid vertex, illegal move");
+            System.out.print(reponse(false) + " invalid vertex, illegal move");
             return;
         }
 
         casee.setPion(new Pion(color));
-        System.out.print(reponse(true));
+        System.out.println(reponse(true));
 
         estPremierCoupDuJeu = false;
         estGagnant(color);
@@ -123,7 +123,7 @@ public class Cmd {
         }
         Random r = new Random();
         String coord;
-        Pion.Couleur color = couleur.equalsIgnoreCase("black") ? X : Pion.Couleur.O;
+        Pion.Couleur color = Jeu.getCouleurC(couleur);
         boolean coupValide = false;
 
         while (!coupValide) {
@@ -214,9 +214,10 @@ public class Cmd {
 
     public static void estGagnant(Pion.Couleur c) {
         if (estAligner(c)) {
-            System.out.println(" Le joueur " + c + " a gagné");
-            showboard();
-            System.exit(0);
+            System.out.println(reponse(true) + " Le joueur " + c + " a gagné");
+            /*showboard();*/
+            /*System.exit(0);*/
+
         }
     }
 
@@ -229,7 +230,7 @@ public class Cmd {
             finJeu();
         }
 
-        Pion.Couleur couleur = c.equalsIgnoreCase("black") ? X : Pion.Couleur.O;
+        Pion.Couleur couleur = Jeu.getCouleurC(c);
         p.getCase(move.getX(), move.getY()).setPion(new Pion(couleur));
 
         p.toSrtring(); //
@@ -237,15 +238,16 @@ public class Cmd {
 
     public static void finJeu() {
         if (!p.aCaseVide() && !estAligner(Pion.Couleur.X) && !estAligner(Pion.Couleur.O)) {
-            System.out.println(" Le jeu est terminé : match nul, le plateau est plein !");
-            showboard();
-            System.exit(0);
+            System.out.println(reponse(true) + " Le jeu est terminé : match nul, le plateau est plein !");
+           /* showboard();*/
+          /*  System.exit(0);*/
         }
     }
 
     public static String name(){
-      return "c'est nous les plus mechants sur le piano ma cherie demande a Rhianna";
+        return "NESRINE ALYA LEONA AMINA";
     }
+
    public static int protocol_version(){
         return 2;
 
@@ -253,6 +255,7 @@ public class Cmd {
    public static int version(){
         return 1;
    }
+
    public static String list_commands(){
         return "boardsize \n" +
                 "clear_board \n" +
