@@ -11,11 +11,10 @@ public class JoueurBotMax  extends Joueur {
 
     @Override
     public void jouer() {
-        System.out.println("JoueurBotMax jouer");
+
       minMax(getCouleurNom() , this);
 
     }
-
     @Override
     public void jouer(String coord) {
         throw new UnsupportedOperationException("Cette méthode n'est pas supportée pour ce type de joueur.");

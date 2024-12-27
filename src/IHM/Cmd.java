@@ -5,12 +5,9 @@ import Jeu.Pion;
 import Jeu.Plateau;
 import Joueurs.Arbre;
 import Joueurs.IJoueur;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import static Jeu.Pion.Couleur.X;
 
 public class Cmd {
 
@@ -21,7 +18,7 @@ public class Cmd {
 
 
     public static List<String> recuperer(String s) {
-        if (s.trim().isEmpty()) { // Vérifie si la chaîne est vide ou null
+        if (s.trim().isEmpty()) {      //Vérifie si la chaîne est vide ou null
             System.out.println(reponse(false));
             return new ArrayList<>();
         }
@@ -65,14 +62,14 @@ public class Cmd {
     ;
 
     public static void play(String couleur, String coord) {
-        /*System.out.println("Coordonnée reçue : " + coord); // Débogage*/
+        //System.out.println("Coordonnée reçue : " + coord); //Débogage
 
         if (coord.length() < 2 || !Character.isLetter(coord.charAt(0)) || !Character.isDigit(coord.charAt(1))) {
             System.out.println(reponse(false) + " invalid vertex, bad format");
             return;
         }
 
-        Pion.Couleur color = couleur.equalsIgnoreCase("black") ? X : Pion.Couleur.O;
+        Pion.Couleur color = Jeu.getCouleurC(couleur);
         String chiffres = coord.substring(1);
         int x = Character.toUpperCase(coord.charAt(0)) - 'A';
         int y = p.getTaille() - Integer.parseInt(chiffres);
@@ -85,12 +82,12 @@ public class Cmd {
 
         Case casee = p.getCase(x, y);
         if (!casee.isEmpty()) {
-            System.out.println(reponse(false) + " invalid vertex, illegal move");
+            System.out.print(reponse(false) + " invalid vertex, illegal move");
             return;
         }
 
         casee.setPion(new Pion(color));
-        System.out.print(reponse(true));
+        System.out.println(reponse(true));
 
         estPremierCoupDuJeu = false;
         estGagnant(color);
@@ -123,7 +120,7 @@ public class Cmd {
         }
         Random r = new Random();
         String coord;
-        Pion.Couleur color = couleur.equalsIgnoreCase("black") ? X : Pion.Couleur.O;
+        Pion.Couleur color = Jeu.getCouleurC(couleur);
         boolean coupValide = false;
 
         while (!coupValide) {
@@ -192,9 +189,7 @@ public class Cmd {
             if (p.getCase(x, y).getPion().getCouleur() == c) {
                 tmp++;
             }
-
         }
-
         return tmp == nb_alignemnts;
     }
 
@@ -214,38 +209,38 @@ public class Cmd {
 
     public static void estGagnant(Pion.Couleur c) {
         if (estAligner(c)) {
-            System.out.println(" Le joueur " + c + " a gagné");
-            showboard();
-            System.exit(0);
+            System.out.println(reponse(true) + " Le joueur " + c + " a gagné");
+            /*showboard();*/
+            /*System.exit(0);*/
+
         }
     }
 
     public static void minMax(String c , IJoueur j) {
 
         Arbre move = Arbre.minMax(p, Integer.MIN_VALUE, Integer.MAX_VALUE, j, true , Jeu.getProfondeur());
-
         if (move.getX() < 0 || move.getY() < 0 || move.getX() >= p.getTaille() || move.getY() >= p.getTaille()) {
             //System.out.println("Aucun coup valide trouvé dans minMax.");
             finJeu();
         }
 
-        Pion.Couleur couleur = c.equalsIgnoreCase("black") ? X : Pion.Couleur.O;
+        Pion.Couleur couleur = Jeu.getCouleurC(c);
         p.getCase(move.getX(), move.getY()).setPion(new Pion(couleur));
-
         p.toSrtring(); //
     }
 
     public static void finJeu() {
         if (!p.aCaseVide() && !estAligner(Pion.Couleur.X) && !estAligner(Pion.Couleur.O)) {
-            System.out.println(" Le jeu est terminé : match nul, le plateau est plein !");
-            showboard();
-            System.exit(0);
+            System.out.println(reponse(true) + " Le jeu est terminé : match nul, le plateau est plein !");
+            //showboard();
+            //System.exit(0);
         }
     }
 
     public static String name(){
-      return "c'est nous les plus mechants sur le piano ma cherie demande a Rhianna";
+        return "NESRINE ALYA LEONA AMINA";
     }
+
    public static int protocol_version(){
         return 2;
 
@@ -253,6 +248,7 @@ public class Cmd {
    public static int version(){
         return 1;
    }
+
    public static String list_commands(){
         return "boardsize \n" +
                 "clear_board \n" +
@@ -264,5 +260,4 @@ public class Cmd {
                 "showboard\n" +
                 "version";
    }
-
 }

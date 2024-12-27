@@ -10,7 +10,7 @@ public class JoueurBotNaif extends Joueur {
 
     @Override
     public void jouer() {
-        System.out.println(couleur);
+
         genmove(getCouleurNom());
     }
     public void jouer(String coord) {
