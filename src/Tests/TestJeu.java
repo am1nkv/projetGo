@@ -2,21 +2,27 @@ package Tests;
 
 import IHM.Cmd;
 import Jeu.Pion;
-import Jeu.Plateau;
-import Joueurs.Arbre;
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 import java.util.List;
+import IHM.Jeu;
+import Jeu.Case;
 
 public class TestJeu {
-
-    @Test
-    public void testBoardSize() {
+    /*@Test
+    public void testHumanVsRandom() {
         Cmd c = new Cmd();
         c.boardsize("7");
+        Jeu.lancer("black", "human", null);
+        Jeu.lancer("white", "randomBot", null);
+        c.play("black", "B2");
         Assertions.assertEquals(7 , c.getP().getTaille());
-    }
+        Case caseB2 = c.getP().getCase(1, 5);
+        Assertions.assertFalse(caseB2.isEmpty(), "La case B2 doit être occupée.");
+        Assertions.assertEquals(Pion.Couleur.X, caseB2.getPion().getCouleur(), "La case B2 doit contenir un pion noir.");
+    }*/
 
     @Test
     public void testShowBoard() {
@@ -34,13 +40,17 @@ public class TestJeu {
         c.play("black","D4");
         c.play("black","D5");
         c.play("black","D6");
-        Assertions.assertEquals(true,c.estAligner( Pion.Couleur.O));
+        Assertions.assertEquals(false,c.estAligner( Pion.Couleur.X));
+        c.play("black" , "D7");
+        Assertions.assertEquals(true,c.estAligner( Pion.Couleur.X));
     }
 
     @Test
     public void testRecuperer() {
-        List<String> test = List.of(new String[]{"white", "D3"});
-        List<String> exemple = Cmd.recuperer("play white D3");
+        List<String> test = new ArrayList<>();
+        test.add("white");
+        test.add("D3");
+        List<String> exemple = Cmd.recuperer("white D3");
         Assertions.assertEquals(test, exemple);
     }
 

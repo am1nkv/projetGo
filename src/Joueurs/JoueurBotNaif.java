@@ -10,10 +10,11 @@ public class JoueurBotNaif extends Joueur {
 
     @Override
     public void jouer() {
-
         genmove(getCouleurNom());
     }
+
     public void jouer(String coord) {
         throw new UnsupportedOperationException("Cette méthode n'est pas supportée pour ce type de joueur.");
     }
+
 }

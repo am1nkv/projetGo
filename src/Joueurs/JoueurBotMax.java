@@ -1,5 +1,7 @@
 package Joueurs;
 
+import Jeu.Plateau;
+
 import static IHM.Cmd.*;
 
 
@@ -11,9 +13,7 @@ public class JoueurBotMax  extends Joueur {
 
     @Override
     public void jouer() {
-
       minMax(getCouleurNom() , this);
-
     }
     @Override
     public void jouer(String coord) {
