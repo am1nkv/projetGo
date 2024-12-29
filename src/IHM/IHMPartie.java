@@ -1,39 +1,40 @@
 package IHM;
 
+import Jeu.Jeu;
 import java.util.List;
-import static IHM.Cmd.showboard;
+
+import static Jeu.Commande.quit;
+import static Jeu.Commande.showboard;
 
 public class IHMPartie {
     public static void partie(List<String> l , boolean debut) {
 
         if(debut){
-            Jeu.partie(null , null );
+            Jeu.partie(null );
             return;
         }
         switch (l.get(0)) {
 
             case "play":
-                Jeu.partie( l.get(2) ,l.get(1) ); //La logique du bot est déjà incluse
-                //System.out.println("play fait");
+                Jeu.partie( l.get(1) );
+
                 break;
 
             case "genmove":
                 if (Jeu.joueurActuel().equals("human")) {
-                    try{
-                        Jeu.partie( null ,l.get(1));
-                    }
-                    catch(Exception e){
-                        Jeu.partie(null , l.get(1));
-                    }
+                    Jeu.partie( null);
+
                 }
                 break;
 
             case "showboard":
                     showboard();
                     break;
-
+            case "quit" :
+                quit();
+                break;
             default:
-                System.out.println("illegal move");
+                System.out.println("illegal move ");
                 break;
         }
     }

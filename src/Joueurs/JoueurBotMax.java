@@ -1,8 +1,6 @@
 package Joueurs;
 
-import Jeu.Plateau;
-
-import static IHM.Cmd.*;
+import static Jeu.Commande.*;
 
 
 public class JoueurBotMax  extends Joueur {

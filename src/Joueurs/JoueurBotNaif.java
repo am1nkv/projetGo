@@ -1,6 +1,6 @@
 package Joueurs;
 
-import static IHM.Cmd.*;
+import static Jeu.Commande.*;
 
 public class JoueurBotNaif extends Joueur {
 

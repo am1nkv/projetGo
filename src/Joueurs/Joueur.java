@@ -1,14 +1,28 @@
 package Joueurs;
 
-import Jeu.Pion;
+import Plateau.Pion;
+import Jeu.*;
 
 public class Joueur implements IJoueur {
     protected Pion.Couleur couleur;
     protected String type;
 
     public Joueur(String couleur, String type) {
-        this.couleur = IHM.Jeu.getCouleurC(couleur);
+        this.couleur = Jeu.getCouleurC(couleur);
         this.type = type;
+    }
+
+    public static Joueur factoryJoueur(String type , String couleur) {
+        switch (type) {
+            case "human":
+                return new JoueurHumain(couleur , type );
+            case "randombot":
+                return new JoueurBotNaif(couleur, type );
+            case "minimax":
+                return new JoueurBotMax(couleur, type );
+            default:
+                return null;
+        }
     }
 
     @Override

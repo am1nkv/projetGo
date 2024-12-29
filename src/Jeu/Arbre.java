@@ -1,7 +1,7 @@
-package Joueurs;
+package Jeu;
 
-import Jeu.Pion;
-import Jeu.Plateau;
+import Plateau.Pion;
+import Plateau.Plateau;
 
 public class Arbre {
     private static final int infinie = Integer.MAX_VALUE;
@@ -23,18 +23,16 @@ public class Arbre {
         this.depth = depth;
     }
 
-
     public static Arbre minMax(Plateau p, int a, int b, IJoueur joueur, boolean j, int profondeurMax) {
         if (!p.aCaseVide() || p.aGagner(joueur.getCouleur()) || p.aGagner(joueur.getCouleurInverse()) || profondeurMax == 0) {
             int score = note(p, joueur);
-            return new Arbre(-1, -1, score, 0); // Ajout du nombre de coups (0)
-        }
+            return new Arbre(-1, -1, score, 0); }
 
         Arbre bestMove = new Arbre();
 
         if (j) { // Joueur principal
             bestMove.score = -infinie;
-            bestMove.depth = Integer.MAX_VALUE; // Profondeur maximale pour minimiser
+            bestMove.depth = Integer.MAX_VALUE;
 
             for (int xx = 0; xx < p.getTaille(); xx++) {
                 for (int yy = 0; yy < p.getTaille(); yy++) {
@@ -45,20 +43,19 @@ public class Arbre {
 
                         move.x = xx;
                         move.y = yy;
-                        move.depth += 1; // Incrémenter le nombre de coups
+                        move.depth += 1;
 
                         if (move.score > bestMove.score || (move.score == bestMove.score && move.depth < bestMove.depth)) {
                             bestMove = move;
                         }
 
                         a = Math.max(a, bestMove.score);
-                        // Pas de coupe Alpha-Beta pour tester toutes les possibilités
                     }
                 }
             }
-        } else { // Adversaire
+        } else {
             bestMove.score = infinie;
-            bestMove.depth = Integer.MAX_VALUE; // Profondeur maximale pour minimiser
+            bestMove.depth = Integer.MAX_VALUE;
 
             for (int x = 0; x < p.getTaille(); x++) {
                 for (int y = 0; y < p.getTaille(); y++) {
@@ -69,14 +66,13 @@ public class Arbre {
 
                         move.x = x;
                         move.y = y;
-                        move.depth += 1; // Incrémenter le nombre de coups
+                        move.depth += 1;
 
                         if (move.score < bestMove.score || (move.score == bestMove.score && move.depth < bestMove.depth)) {
                             bestMove = move;
                         }
 
                         b = Math.min(b, bestMove.score);
-                        // Pas de coupe Alpha-Beta pour tester toutes les possibilités
                     }
                 }
             }

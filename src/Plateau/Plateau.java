@@ -1,12 +1,12 @@
-package Jeu;
+package Plateau;
 
-import IHM.Cmd;
+import Jeu.LogiqueJeu;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Plateau {
-    private List<List<Case>> plateau;
-    private int taille;
+    private final List<List<Case>> plateau;
+    private final int taille;
 
 
     public Plateau(int size) {
@@ -79,7 +79,8 @@ public class Plateau {
         return false;
     }
     public boolean aGagner(Pion.Couleur c) {
-        return Cmd.estAligner(c);
+
+        return LogiqueJeu.estAligner(c);
     }
 
 }

@@ -1,4 +1,4 @@
-package Jeu;
+package Plateau;
 
 public class Pion {
     public enum Couleur { X, O } // X(Noir) O(Blanc)
@@ -20,6 +20,7 @@ public class Pion {
     }
 
     public void setPosition(Case position) {
+
         this.position = position;
     }
 

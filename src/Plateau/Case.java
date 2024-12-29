@@ -1,4 +1,4 @@
-package Jeu;
+package Plateau;
 
 public class Case {
     private int x;

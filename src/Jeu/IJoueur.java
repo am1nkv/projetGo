@@ -1,6 +1,6 @@
-package Joueurs;
+package Jeu;
 
-import Jeu.Pion;
+import Plateau.Pion;
 
 public interface IJoueur {
     void jouer();
