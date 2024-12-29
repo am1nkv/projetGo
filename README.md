@@ -16,7 +16,7 @@
   
 
 
-+ Diagramme de dépendances : ![](DiagrammeDependances.png)
++ Diagramme de dépendances : ![](DiagDep.png)
 
 
 + Le plus compliqué était de coder tout en respectant les principes SOLID, sachant que l'on les apprenait au même moment. Notre code était donc sans cesse en permanente évolution pour essayer d'appliquer au mieux les principes et les notions de patterns vus en cours.
