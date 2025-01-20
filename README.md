@@ -3,7 +3,18 @@
 	
  _AYINDE ALYA NESRINE HAJJEM LEONA TRAN AMINA KARMENOVA GROUPE 208-207_
 
+## NOTE 10
 
+## CORRECTION
+Diagramme d'architecture OK, sauf les classes Case et Pion dont une au moins est possiblement redondante (plutôt Case).
+
+Les tests sont très insuffisants. Il faut place ceux de chaque classe C dans une class CTest dand le meme paquetage que C.
+
+Le readme ne dit pas clairement ce qui marche, s'il y a un mode partie ou pas et comment utiliser ce mode.
+
+J'ai essayé de faire une partie contre le bot minimax : quelques commandes marchent mais pas play ! Manque de travail évident. 
+
+play black B2 envoie "black" dans le paramètre coord et affiche une erreur !
 	
  + Toutes les fonctions demandées fonctionnent.Notre projet se connecte a GoGui.
  
